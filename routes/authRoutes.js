@@ -1,11 +1,12 @@
 const { Router } = require('express')
+const { signup, signin, profile } = require('../controllers/authControllers')
+const { validateCreateNewUser, validateLogin } = require('../validators/user')
+
 
 const router = Router()
-const auth = require('../controllers/authControllers')
-const { bcrypt, compare } = require('../utils/handlePassword')
 
-// router.post('/signup', auth.signup)
-router.post('/signin', auth.signin)
-router.get('/profile', auth.profile)
+router.post('/signup', validateCreateNewUser, signup)
+router.post('/signin', validateLogin, signin)
+router.get('/profile', profile)
 
 module.exports = router

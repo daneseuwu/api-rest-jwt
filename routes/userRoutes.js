@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const { validateCreateNewUser } = require('../validators/user')
 const { getAllUser, getOneUser, createNewUser, updateOneUser, deleteOneUser } = require('../controllers/userControllers')
+// const { bcrypt, compare } = require('../utils/handlePassword')
 
 const router = Router()
 

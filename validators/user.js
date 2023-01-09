@@ -30,12 +30,14 @@ const validateCreateNewUser = [
     check('email')
         .exists()
         .notEmpty()
+        .isEmail()
         .isLength({ min: 5, max: 50 })
         .withMessage('email is required'),
 
     check('age')
         .exists()
         .notEmpty()
+        .isNumeric()
         .withMessage('age is required'),
 
     (req, res, next) => {
@@ -45,7 +47,20 @@ const validateCreateNewUser = [
 
 ];
 
+const validateLogin = [
+    check('username')
+        .exists()
+        .notEmpty()
+        .withMessage('username is required'),
+
+    check('password')
+        .exists()
+        .notEmpty()
+        .withMessage('username is required'),
+
+]
 module.exports = {
-    validateCreateNewUser
+    validateCreateNewUser,
+    validateLogin
 }
 
