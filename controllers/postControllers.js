@@ -3,9 +3,9 @@ const Post = require('../models/postModels')
 
 const getAllPost = async (req, res = response) => {
     try {
-
+        const user = req.user
         const post = await Post.find()
-
+        res.send({ post, user })
         return res.status(200).json({
             status: 200,
             data: post,
