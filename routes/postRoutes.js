@@ -1,13 +1,14 @@
 const { Router } = require('express')
-const user = require('../controllers/postControllers')
+const { getAllPost, getOnePost, createNewPost, updateOnePost, deleteOnePost } = require('../controllers/postControllers')
 const authmiddleware = require('../middleware/session')
+const checkRol = require('../middleware/rol')
 
 const router = Router()
 
-router.get('/', authmiddleware, user.getAllPost)
-router.get('/:id', user.getOnePost)
-router.post('/', user.createNewPost)
-router.put('/:id', user.updateOnePost)
-router.delete('/:id', user.deleteOnePost)
+router.get('/', authmiddleware, checkRol(['admin']), getAllPost)
+router.get('/:id', authmiddleware, checkRol(['admin']), getOnePost)
+router.post('/', authmiddleware, checkRol(['admin']), createNewPost)
+router.put('/:id', authmiddleware, checkRol(['admin']), updateOnePost)
+router.delete('/:id', authmiddleware, checkRol(['admin']), deleteOnePost)
 
 module.exports = router

@@ -8,9 +8,7 @@ const getAllPost = async (req, res = response) => {
         res.send({ post, user })
         return res.status(200).json({
             status: 200,
-            data: post,
             message: 'Listado de post con exito!'
-
         })
 
     } catch (error) {
