@@ -6,7 +6,29 @@ const { tokenSign } = require('../utils/handleJwt')
 
 const signup = async (req, res) => {
     try {
+
         req = matchedData(req)
+
+        //validar que no haya regitros existente de correo y username
+        const username = await Auth.findOne({ username: req.username });
+        const email = await Auth.findOne({ email: req.email });
+
+        if (username) {
+
+            return res.status(400).json({
+                status: 400,
+                exist: false,
+                message: 'nombre de usuario ya existe'
+            });
+
+        } else if (email) {
+            return res.status(400).json({
+                status: 400,
+                exist: false,
+                message: 'email ya existe'
+            });
+        }
+
         const password = await bcrypt(req.password)
         const body = { ...req, password }
 
