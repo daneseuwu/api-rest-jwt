@@ -1,4 +1,5 @@
 const { Schema, default: mongoose } = require('mongoose')
+const mongoDelete = require('mongoose-delete')
 
 const postSchema = new Schema(
     {
@@ -33,5 +34,10 @@ const postSchema = new Schema(
         versionKey: false
     }
 )
+
+postSchema.plugin(mongoDelete, {
+    overrideMethods: 'all'
+});
+
 
 module.exports = mongoose.model('post', postSchema)

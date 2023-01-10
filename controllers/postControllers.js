@@ -59,8 +59,44 @@ const createNewPost = async (req, res = response) => {
         })
     }
 }
-const updateOnePost = async (req, res = response) => { }
-const deleteOnePost = async (req, res = response) => { }
+const updateOnePost = async (req, res = response) => {
+    try {
+        const { id } = req.params;
+        const update = req.body;
+        await Post.updateOne({ _id: id }, update)
+
+        return res.status(200).json({
+            status: 200,
+            data: update,
+            message: 'update success'
+        })
+
+    } catch (error) {
+
+        return res.status(500).json({
+            status: 500,
+            message: 'Upps ha ocurriod un error del lado del servidor!'
+        })
+    }
+}
+const deleteOnePost = async (req, res = response) => {
+    try {
+        const { id } = req.params;
+        await Post.delete({
+            _id: id
+        })
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Registro eliminado con exito'
+        })
+    } catch (error) {
+        return res.status(500).json({
+            status: 500,
+            message: 'Upps ha ocurriod un error del lado del servidor!'
+        })
+    }
+}
 
 module.exports = {
     getAllPost,

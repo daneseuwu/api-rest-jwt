@@ -6,10 +6,10 @@ const checkRol = require('../middleware/rol')
 
 const router = Router()
 
-router.get('/', authmiddleware, checkRol(['admin']), getAllPost)
-router.get('/:id', authmiddleware, checkRol(['admin']), getOnePost)
-router.post('/', validateCreatePost, authmiddleware, checkRol(['admin']), createNewPost)
-router.put('/:id', authmiddleware, checkRol(['admin']), updateOnePost)
-router.delete('/:id', authmiddleware, checkRol(['admin']), deleteOnePost)
+router.get('/', authmiddleware, checkRol(['admin', 'user']), getAllPost)
+router.get('/:id', authmiddleware, checkRol(['admin', 'user']), getOnePost)
+router.post('/', validateCreatePost, authmiddleware, checkRol(['admin', 'user']), createNewPost)
+router.put('/:id', authmiddleware, checkRol(['admin', 'user']), updateOnePost)
+router.delete('/:id', authmiddleware, checkRol(['admin', 'user']), deleteOnePost)
 
 module.exports = router

@@ -6,7 +6,7 @@ const validateCreatePost = [
     check('title')
         .exists()
         .notEmpty()
-        .isLength({ min: 5, max: 15 })
+        .isLength({ min: 5, max: 50 })
         .withMessage('title is required'),
 
     check('description')
@@ -18,16 +18,16 @@ const validateCreatePost = [
     check('category')
         .exists()
         .notEmpty()
-        .isLength({ min: 5, max: 10 })
+        .isLength({ min: 5, max: 20 })
         .withMessage('category is required'),
 
-    check('author')
+    check('author.name')
         .exists()
         .notEmpty()
-        .isLength({ min: 5, max: 10 })
+        .isLength({ min: 5, max: 20 })
         .withMessage('author is required'),
 
-    check('position')
+    check('author.position')
         .exists()
         .notEmpty()
         .isLength({ min: 5, max: 20 })

@@ -1,16 +1,15 @@
 const { Router } = require('express')
 const { validateCreateNewUser } = require('../validators/user')
 const { getAllUser, getOneUser, createNewUser, updateOneUser, deleteOneUser } = require('../controllers/userControllers')
-// const { bcrypt, compare } = require('../utils/handlePassword')
+const authmiddleware = require('../middleware/session')
+const checkRol = require('../middleware/rol')
 
 const router = Router()
 
-router.get('/', getAllUser)
-router.get('/:id', getOneUser)
-
-router.post('/', validateCreateNewUser, createNewUser)
-
-router.put('/:id', updateOneUser)
-router.delete('/:id', deleteOneUser)
+router.get('/', authmiddleware, checkRol(['admin']), getAllUser)
+router.get('/:id', authmiddleware, checkRol(['admin']), getOneUser)
+router.post('/', validateCreateNewUser, authmiddleware, checkRol(['admin']), createNewUser)
+router.put('/:id', authmiddleware, checkRol(['admin']), updateOneUser)
+router.delete('/:id', authmiddleware, checkRol(['admin']), deleteOneUser)
 
 module.exports = router
