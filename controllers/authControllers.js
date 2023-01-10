@@ -82,12 +82,7 @@ const signin = async (req, res = response) => {
 
 }
 
-const profile = async (req, res = response) => {
-    res.json('profile')
-
-}
 module.exports = {
     signup,
-    signin,
-    profile
+    signin
 }
