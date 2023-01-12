@@ -8,12 +8,10 @@ npm install
 npm run dev
 ```
 ```js mdx:preview
-const app = express()
-```
-
-```jsx mdx:preview
 const express = require('express')
 const colors = require('colors')
+
+const app = express()
 
 app.listen(port, () => {
 
