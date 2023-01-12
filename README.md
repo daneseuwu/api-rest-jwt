@@ -1,24 +1,30 @@
 # api-jwt
 
 Clone this repository
-
-1 npm install
-2 npm run dev
+```bash
+npm install
+```
+```bash
+npm run dev
+```
+```js mdx:preview
+const app = express()
+```
 
 ```jsx mdx:preview
-import React from "react";
-import MDEditor from '@uiw/react-md-editor';
+const express = require('express')
+const colors = require('colors')
 
-export default function App() {
-  const [value, setValue] = React.useState("**Hello world!!!**");
-  return (
-    <div className="container">
-      <MDEditor
-        value={value}
-        onChange={setValue}
-      />
-      <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
-    </div>
-  );
+app.listen(port, () => {
+
+    try {
+        console.log(colors.blue(`Server listening successfully on port http://localhost:${port}`))
+
+    } catch (error) {
+        console.log(colors.red('Failed to listen on server port:', error))
+    }
+
+})
+
 }
 ```
