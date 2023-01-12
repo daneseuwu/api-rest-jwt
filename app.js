@@ -1,9 +1,9 @@
 const express = require('express')
 const colors = require('colors')
 const morgan = require('morgan')
-const jwt = require('jsonwebtoken')
 const { conn } = require('./config/mongo')
 const router = require('./routes/routes')
+const cors = require('cors')
 
 require('dotenv').config()
 const app = express()
@@ -11,6 +11,11 @@ app.use(morgan('dev'))
 
 // middleware
 app.use(express.json())
+
+//lista de control de acceso(origenes)
+const whiteList = ['http://localhost:3000/']
+app.use(cors({ origin: whiteList }))
+
 app.use('/api', router)
 
 app.get('/', (req, res) => {

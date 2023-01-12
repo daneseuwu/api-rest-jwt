@@ -6,7 +6,9 @@ const checkRol = require('../middleware/rol')
 
 const router = Router()
 
-router.get('/', authmiddleware, checkRol(['admin']), getAllUser)
+// authmiddleware, checkRol(['admin']), 
+
+router.get('/', getAllUser)
 router.get('/:id', authmiddleware, checkRol(['admin']), getOneUser)
 router.post('/', validateCreateNewUser, authmiddleware, checkRol(['admin']), createNewUser)
 router.put('/:id', authmiddleware, checkRol(['admin']), updateOneUser)
