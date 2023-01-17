@@ -26,6 +26,7 @@ const getOneUser = async (req, res = response) => {
     try {
         const { id } = req.params;
         const user = await User.findById(id)
+        
         return res.status(200).json({
             status: 200,
             data: user,
