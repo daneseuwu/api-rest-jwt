@@ -18,14 +18,14 @@ const signup = async (req, res) => {
             return res.status(400).json({
                 status: 400,
                 exist: false,
-                message: 'nombre de usuario ya existe'
+                message: 'name already exists'
             });
 
         } else if (email) {
             return res.status(400).json({
                 status: 400,
                 exist: false,
-                message: 'email ya existe'
+                message: 'email already exists'
             });
         }
 

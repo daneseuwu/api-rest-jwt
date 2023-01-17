@@ -15,7 +15,7 @@ const conn = async () => {
 
             })
 
-        console.log(colors.yellow('Successfully connected mongo database!'))
+        console.log(colors.yellow('Successfully connected mongo database'))
     } catch (error) {
 
         console.log(colors.red('Error connecting to mongo database!', error))

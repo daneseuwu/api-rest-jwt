@@ -8,7 +8,7 @@ const router = Router()
 
 // authmiddleware, checkRol(['admin']), 
 
-router.get('/', getAllUser)
+router.get('/', authmiddleware, checkRol(['admin']), getAllUser)
 router.get('/:id', authmiddleware, checkRol(['admin']), getOneUser)
 router.post('/', validateCreateNewUser, authmiddleware, checkRol(['admin']), createNewUser)
 router.put('/:id', authmiddleware, checkRol(['admin']), updateOneUser)

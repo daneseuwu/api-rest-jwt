@@ -1,5 +1,8 @@
 const { response } = require('mongoose')
+const { matchedData } = require('express-validator')
 const User = require('../models/userModels')
+const { bcrypt, compare } = require('../utils/handlePassword')
+const { tokenSign } = require('../utils/handleJwt')
 
 const getAllUser = async (req, res = response) => {
     try {
@@ -38,21 +41,52 @@ const getOneUser = async (req, res = response) => {
 };
 const createNewUser = async (req, res = response, next) => {
     try {
-        const user = req.body;
 
-        const guardar = new User(user)
-        guardar.save();
+        req = matchedData(req)
 
-        return res.status(200).json({
-            status: 200,
-            message: 'Registro creado con exito'
-        })
+        //validar que no haya regitros existente de correo y username
+        const username = await User.findOne({ username: req.username });
+        const email = await User.findOne({ email: req.email });
+
+        if (username) {
+
+            return res.status(400).json({
+                status: 400,
+                exist: false,
+                message: 'nombre de usuario ya existe'
+            });
+
+        } else if (email) {
+            return res.status(400).json({
+                status: 400,
+                exist: false,
+                message: 'email ya existe'
+            });
+        }
+
+        const password = await bcrypt(req.password)
+        const body = { ...req, password }
+
+        const dataUser = await User.create(body)
+        dataUser.set('password', undefined, { strict: false })
+
+        const data = {
+
+            token: await tokenSign(dataUser),
+            user: dataUser
+
+        }
+
+        res.send({ data })
 
     } catch (error) {
-        return res.status(500).json({
+
+        res.status(500).json({
             status: 500,
-            message: 'Upps ha ocurrido un error del lado del sevidor'
+            data: user,
+            message: 'ha ocurrido un error en el servidor'
         })
+
     }
 };
 const updateOneUser = async (req, res = response) => {
