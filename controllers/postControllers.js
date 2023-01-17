@@ -1,25 +1,28 @@
 const { response } = require('mongoose')
 const Post = require('../models/postModels')
 
-const getAllPost = async (req, res = response) => {
+const getAllPost = async (req, res, next) => {
+
     try {
-        const user = req.user
+
         const post = await Post.find()
-        res.send({ post, user })
+
         return res.status(200).json({
             status: 200,
+            data: post,
             message: 'Listado de post con exito!'
         })
 
     } catch (error) {
         return res.status(500).json({
-            status: 200,
+            status: 500,
             message: 'Upps ha ocurrido un error en el servidor'
 
         })
     }
+
 }
-const getOnePost = async (req, res = response) => {
+const getOnePost = async (req, res, next) => {
     try {
         const { id } = req.params;
         const post = await Post.findById(id)
@@ -33,13 +36,13 @@ const getOnePost = async (req, res = response) => {
 
     } catch (error) {
         return res.status(500).json({
-            status: 200,
+            status: 500,
             message: 'Upps ha ocurrido un error en el servidor'
 
         })
     }
 }
-const createNewPost = async (req, res = response) => {
+const createNewPost = async (req, res, next) => {
     try {
 
         const post = req.body;
@@ -59,7 +62,7 @@ const createNewPost = async (req, res = response) => {
         })
     }
 }
-const updateOnePost = async (req, res = response) => {
+const updateOnePost = async (req, res, next) => {
     try {
         const { id } = req.params;
         const update = req.body;
@@ -79,7 +82,7 @@ const updateOnePost = async (req, res = response) => {
         })
     }
 }
-const deleteOnePost = async (req, res = response) => {
+const deleteOnePost = async (req, res, next) => {
     try {
         const { id } = req.params;
         await Post.delete({
