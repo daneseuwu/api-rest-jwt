@@ -13,7 +13,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 
 //lista de control de acceso(origenes)
-const whiteList = ['http://localhost:3000/']
+const whiteList = ['http://localhost:3000/api/post']
 app.use(cors({ origin: whiteList }))
 
 app.use('/api', router)
