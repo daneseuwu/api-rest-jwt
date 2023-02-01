@@ -19,7 +19,7 @@ app.use(cors({ origin: whiteList }))
 app.use('/api', router)
 
 app.get('/', (req, res) => {
-    res.redirect('api/user')
+    res.redirect('api/post')
 })
 
 
